@@ -45,8 +45,14 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "io.kamon" %% "kamon-core" % "1.0.0",
-  "io.kamon" %% "kamino-reporter" % "1.0.0"
+  "io.kamon" %% "kamino-reporter" % "1.0.0",
+  "io.kamon" %% "kamon-system-metrics" % "1.0.0",
+  "io.kamon" %% "kamon-http4s" % "1.0.0-RC1-64068aa0b7ad8b102831ed1431af45ef8c936fcb"
 
 )
+
+javaAgents += "io.kamon" % "kamon-agent" % "0.0.10-experimental" % "compile;runtime;test"
+
+enablePlugins(JavaAgent)
 
 mainClass := Some("com.github.damdev.dambackend.Server")

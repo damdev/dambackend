@@ -6,6 +6,7 @@ import com.github.damdev.dambackend.config.Config
 import com.github.damdev.dambackend.service.OkService
 import fs2.{Stream, Task}
 import kamon.Kamon
+import kamon.system.SystemMetrics
 import org.http4s.server.Router
 import org.http4s.server.blaze.BlazeBuilder
 import org.http4s.util.StreamApp
@@ -18,6 +19,8 @@ object Server extends StreamApp {
 
   Kamon.addReporter(new KaminoReporter())
   Kamon.addReporter(new KaminoTracingReporter())
+  SystemMetrics.startCollecting()
+
 
   private val executor: ExecutorService  = Executors.newFixedThreadPool(Config.server.threadPool.size)
 

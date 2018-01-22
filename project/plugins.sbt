@@ -1,3 +1,4 @@
+resolvers += "Typesafe repository" at "https://dl.bintray.com/typesafe/maven-releases/"
 resolvers += Resolver.typesafeRepo("releases")
 
-addSbtPlugin("com.lightbend.sbt" % "sbt-aspectj" % "0.11.0")
+addSbtPlugin("com.lightbend.sbt" % "sbt-javaagent" % "0.1.4")
