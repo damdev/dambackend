@@ -1,3 +1,4 @@
+
 organization := "com.github.damdev"
 
 name := "dambackend"
@@ -40,6 +41,12 @@ libraryDependencies ++= Seq(
   "com.h2database"          %   "h2"                      % "1.4.196"                 % "test",
   "org.scalatest"           %   "scalatest_2.12"          % "3.0.3"                   % "test",
   "org.mockito"             %   "mockito-core"            % "2.7.22"                  % "test"
+)
+
+libraryDependencies ++= Seq(
+  "io.kamon" %% "kamon-core" % "1.0.0",
+  "io.kamon" %% "kamino-reporter" % "1.0.0"
+
 )
 
 mainClass := Some("com.github.damdev.dambackend.Server")

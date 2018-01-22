@@ -5,6 +5,7 @@ import java.util.concurrent.{ExecutorService, Executors}
 import com.github.damdev.dambackend.config.Config
 import com.github.damdev.dambackend.service.OkService
 import fs2.{Stream, Task}
+import kamon.Kamon
 import org.http4s.server.Router
 import org.http4s.server.blaze.BlazeBuilder
 import org.http4s.util.StreamApp
@@ -12,6 +13,11 @@ import org.http4s.util.StreamApp
 import scala.concurrent.ExecutionContext
 
 object Server extends StreamApp {
+
+  import kamon.kamino.{KaminoReporter, KaminoTracingReporter}
+
+  Kamon.addReporter(new KaminoReporter())
+  Kamon.addReporter(new KaminoTracingReporter())
 
   private val executor: ExecutorService  = Executors.newFixedThreadPool(Config.server.threadPool.size)
 
