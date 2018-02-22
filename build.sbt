@@ -43,7 +43,7 @@ libraryDependencies ++= Seq(
 libraryDependencies ++= Seq(
   "io.kamon" %% "kamino-reporter" % "1.0.0",
   "io.kamon" %% "kamon-system-metrics" % "1.0.0",
-  "io.kamon" %% "kamon-http4s" % "1.0.1-1642154649fbf48489ede49dcf411da01b8578fa"
+  "io.kamon" %% "kamon-http4s" % "1.0.1"
 
 )
 
