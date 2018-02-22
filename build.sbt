@@ -31,6 +31,9 @@ libraryDependencies ++= Seq(
   "org.http4s"              %%  "http4s-circe"            % Http4sVersion,
   "org.http4s"              %%  "http4s-dsl"              % Http4sVersion,
   "org.http4s"              %%  "http4s-blaze-client"     % Http4sVersion,
+  "org.tpolecat"            %%  "doobie-core"             % "0.5.0",
+  "com.zaxxer"              %   "HikariCP"                % "2.6.2",
+  "com.h2database"          %   "h2"                      % "1.4.193",
   "ch.qos.logback"          %   "logback-classic"         % "1.2.1",
   "com.typesafe.scala-logging" %% "scala-logging"         % "3.7.2",
   "com.github.pureconfig"   %%  "pureconfig"              % "0.7.1",
@@ -43,7 +46,8 @@ libraryDependencies ++= Seq(
 libraryDependencies ++= Seq(
   "io.kamon" %% "kamino-reporter" % "1.0.0",
   "io.kamon" %% "kamon-system-metrics" % "1.0.0",
-  "io.kamon" %% "kamon-http4s" % "1.0.1-1642154649fbf48489ede49dcf411da01b8578fa"
+  "io.kamon" %%  "kamon-jdbc" % "1.0.2-experimental",
+  "io.kamon" %% "kamon-http4s" % "1.0.1"
 
 )
 
