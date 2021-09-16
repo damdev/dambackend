@@ -1,6 +1,8 @@
 package com.github.damdev.dambackend.config
 
 import com.typesafe.config.ConfigFactory
+import pureconfig.generic.auto._
+import pureconfig.ConfigSource
 
 object Config {
 
@@ -9,7 +11,6 @@ object Config {
   case class ThreadPool(size:Int)
   case class Server(interface: String, port: Int, threadPool: ThreadPool)
 
-  lazy val server: Server = pureconfig.loadConfigOrThrow[Server](config.getConfig("server"))
-
+  lazy val server: Server = ConfigSource.fromConfig(config.getConfig("server")).loadOrThrow[Server]
 
 }

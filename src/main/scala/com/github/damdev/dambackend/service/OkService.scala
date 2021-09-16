@@ -1,28 +1,24 @@
 package com.github.damdev.dambackend.service
 
-import cats.effect.Effect
+import cats.effect.Sync
 import com.typesafe.scalalogging.LazyLogging
-import kamon.Kamon
-import kamon.context.Key
-import org.http4s.HttpService
+import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
 
 object OkService {
-  def apply[F[_]: Effect](): OkService[F] = new OkService[F]()
+  def apply[F[_]: Sync](): OkService[F] = new OkService[F]()
 }
 
-class OkService[F[_]: Effect]() extends LazyLogging {
+class OkService[F[_]: Sync]() extends LazyLogging {
 
   implicit val dsl = Http4sDsl[F]
   import dsl._
 
-  def service(): HttpService[F] =
-    HttpService {
+  def service(): HttpRoutes[F] =
+    HttpRoutes.of {
       case GET -> Root / "ok" => ok()
     }
 
 
-  def ok() = Kamon.withContext(Kamon.currentContext().withKey(Key.local("damkey", 0), 10)) {
-    Ok("ok")
-  }
+  def ok() = Ok("ok")
 }

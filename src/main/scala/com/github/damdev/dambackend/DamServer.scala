@@ -1,28 +1,25 @@
 package com.github.damdev.dambackend
 
-import cats.effect.{Effect, Sync}
 import com.github.damdev.dambackend.config.Config
 import com.github.damdev.dambackend.service.OkService
 import com.typesafe.scalalogging.LazyLogging
-import fs2.{Stream, StreamApp}
-import org.http4s.HttpService
-import org.http4s.server.Router
-import org.http4s.server.blaze.BlazeBuilder
 
 import scala.concurrent.ExecutionContext
+import cats.effect._
+import org.http4s.blaze.server.BlazeServerBuilder
+import org.http4s.server.Router
 
 object DamServer extends LazyLogging {
-  def serve[F[_]: Effect]()(implicit ec: ExecutionContext): Stream[F, StreamApp.ExitCode] = {
-    val router: HttpService[F] = Router(
-      "/" -> OkService[F]().service()
-    )
+  def serve()(implicit ec: ExecutionContext): IO[ExitCode] = {
+    val router = Router[IO](
+      "/" -> OkService[IO]().service()
+    ).orNotFound
 
-    for {
-      _ <- Stream.eval(Sync[F].delay(logger.info("Starting server...")))
-      exitCode <- BlazeBuilder[F]
+    BlazeServerBuilder[IO](ec)
         .bindHttp(Config.server.port, Config.server.interface)
-        .mountService(router)
-        .withExecutionContext(ec).serve
-    } yield exitCode
+        .withHttpApp(router)
+        .resource
+        .use(_ => IO.never)
+        .as(ExitCode.Success)
   }
 }
